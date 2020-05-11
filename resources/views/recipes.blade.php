@@ -1,1 +1,1 @@
-@extends('layouts.app')
+@extends('partials._navbar')
