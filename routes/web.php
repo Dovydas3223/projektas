@@ -23,4 +23,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/recipes', function (){
    return view('recipes');
 });
-Route::get('/exercises', 'ExercisesController@openCategoryView');
+Route::get('/exerciseCategorys', 'ExercisesController@openCategoryView');
+
+Route::get('/exercises', function(){
+    return view('Exercises.exercises');
+});

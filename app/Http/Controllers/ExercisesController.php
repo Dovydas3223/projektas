@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\ExerciseCategory;
+use Illuminate\Support\Facades\Storage;
 
 class ExercisesController extends Controller
 {
@@ -15,12 +16,17 @@ class ExercisesController extends Controller
      */
     public function openCategoryView()
     {
-        $cat = ExerciseCategory::all()->first();
-        $str = "dasdad";
+        $cat = ExerciseCategory::all();
+
+        foreach ($cat as $c){
+            $c-> image = 'data:image/jpeg;base64,'.base64_encode( $c-> image ).'';
+        }
 
 
-        return view('Exercises.exercises', [
-            'categorys' => $cat->categoryName
+
+        return view('Exercises.exerciseCategorys', [
+            //'categorys' => 'data:image/jpeg;base64,'.base64_encode( $cat->image ).''
+            'categorys' => $cat
         ]);
     }
 
