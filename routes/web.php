@@ -20,11 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/recipes', function (){
-   return view('recipes');
-});
-Route::get('/exerciseCategorys', 'ExercisesController@openCategoryView');
+Route::get('/exerciseCategorys', 'ExercisesController@openCategoryView')->name('categ');
+Route::get('/exercises/{id}','ExercisesController@openExerciseListView')->name('exercisesRoute');
+Route::get('/exercisesDesc/{id}', 'ExercisesController@openExerciseDescriptionView')->name('exerciseDesc');
+Route::get('/exercisesDel/{id}', 'ExercisesController@deleteExercise');
+Route::get('/exerciseCreate/{id}', 'ExercisesController@openCreateExerciseView');//category id
+Route::post('/exercises/{id}','ExercisesController@createExercise')->name('create');
+Route::get('exerciseEdit/{id}', 'ExercisesController@openEditExerciseView');
+Route::post('/exerciseEdit/{id}','ExercisesController@editExercise')->name('edit');
+Route::get('/KMI', 'CalculatorController@openKMICalculatorView')->name('KMI');
+Route::get('/requiredWater', 'CalculatorController@openCalorieIntakeView')->name('calorieIntake');
+Route::get('/requiredCalories', 'CalculatorController@openRequiredWaterView')->name('requiredWater');
 
-Route::get('/exercises', function(){
-    return view('Exercises.exercises');
-});
