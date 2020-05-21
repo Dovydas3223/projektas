@@ -31,4 +31,6 @@ Route::post('/exerciseEdit/{id}','ExercisesController@editExercise')->name('edit
 Route::get('/KMI', 'CalculatorController@openKMICalculatorView')->name('KMI');
 Route::get('/requiredWater', 'CalculatorController@openCalorieIntakeView')->name('calorieIntake');
 Route::get('/requiredCalories', 'CalculatorController@openRequiredWaterView')->name('requiredWater');
-
+Route::post('/KMI', 'CalculatorController@calculateKMI')->name('calcKMI');
+Route::post('/requiredCalories', 'CalculatorController@calculateRequiredCalories')->name('reqCalories');
+Route::post('/requiredWater', 'CalculatorController@calculateRequiredWater')->name('reqWater');

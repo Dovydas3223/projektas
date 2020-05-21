@@ -1,6 +1,96 @@
 
+label {
+    border-radius: 0.2rem;
+    width: 12rem;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.1rem;
+    margin-top: 5px;
+}
 
-points{
-    padding: 5px 0px;
-    background-color: #2fa360 ;
+radio {
+    border-radius: 0.2rem;
+    width: 12rem;
+    text-align: center;
+    font-weight: bold;
+    padding: 0.1rem;
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+button {
+    outline: none;
+    border: solid #fff 1px;
+    background: #fff;
+    color: #3db246;
+    font-weight: bold;
+    transition: 1s all;
+}
+button:focus {
+    outline: none;
+    border: solid #fff 1px;
+    background: #fff;
+    color: #3db246;
+    font-weight: bold;
+    transition: 1s all;
+}
+button:hover {
+    background: #3db246;
+    color: #fff;
+    border: solid #fff 1px;
+    font-weight: bold;
+    outline: none;
+}
+
+/* Classes */
+div.jumbotron {
+    background-color: #3db246;
+}
+.jumbotron h1 {
+    text-align: center;
+    font-size: 5rem;
+    font-weight: bold;
+    color: #fff;
+}
+div.calculator {
+    text-align: center;
+}
+.star {
+    color: #fff;
+}
+.calculator h5 {
+    background: #3db246;
+    padding-top: 0.25rem;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 0.3rem;
+    width: 100%;
+    margin-top: 10px;
+}
+.index {
+    font-size: 3rem;
+}
+.size{
+    font-weight: normal;
+    font-size: 2rem;
+    padding-top: 0;
+}
+.index{
+    margin-top: -5px;
+    padding: 0;
+}
+/*media queries*/
+@media only screen and (max-width: 300px ){
+    .jumbotron h1{
+        font-size: 1rem;
+    }
+    .calculator h5{
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    .size{
+        font-size: .9rem;
+        margin: -5px;
+    }
 }

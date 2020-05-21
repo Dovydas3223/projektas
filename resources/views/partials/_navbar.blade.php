@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Styles -->
      <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+     <link href="{{ asset('css/StyleSheet.css') }}" rel="stylesheet">
 </head>
 <body>
 <div id="app">
@@ -124,6 +124,16 @@
             </h1>
         </div>
     @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     @yield('content')
 </div>
 
