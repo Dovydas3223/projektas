@@ -6,15 +6,23 @@
 
 
 
-    <div class="row pt-5" >
-        <h2 class="col-sm-10">Kategorijos pavadinimas</h2>
-        <a href="/exerciseCreate/{{$categoryID}}" class="btn btn-success col-sm-2" >Pridėti pratimą</a>
+    <div class="row justify-content-center mt-3" >
+        <div class=" row col-10">
+            <h2>Pratimai</h2>
+            <a class="btn btn-primary" href="{{ route('categ') }}" style="margin-left: 15px"> Atgal</a>
+        </div>
+        @auth('admin')
+        <div class="row col-2">
+            <a href="{{route('openCreateExerciseView', $categoryID)}}" class="btn btn-success" >Pridėti pratimą</a>
+        </div>
+        @endauth
     </div>
+
     @for ($i = 0; $i < count($exercises); $i=$i+3)
         <div class="w3-row-padding d-flex justify-content-center mt-5" >
 
             @if($i<count($exercises))
-                <div class="w3-quarter w3-container w3-margin-bottom col-sm-4 ">
+                <div class="w3-hover-opacity text-center w3-quarter w3-container w3-margin-bottom col-sm-4 ">
                     <a href="/exercisesDesc/{{$exercises[$i] -> id}}" style="text-decoration: none">
                         <div class="w3-container w3-white  embed-responsive w3-padding-16" >
                             <img src='{{$exercises[$i] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
@@ -57,8 +65,6 @@
                     </a>
                 </div>
             @endif
-
-
         </div>
 
     @endfor

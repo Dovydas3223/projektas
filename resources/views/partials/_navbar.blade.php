@@ -45,10 +45,49 @@
                             <a class="nav-link" href="">Recptai</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/exerciseCategorys') }}">Pratimai</a>
+                            <a class="nav-link" href="{{ route('categ') }}">Pratimai</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Straipsniai</a>
+                            <a class="nav-link" href="{{route('artCategory')}}">Straipsniai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Mitybos planai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        </li>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Skaičuoklės
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('KMI')}}">KMI</a>
+                                <a class="dropdown-item" href="{{route('calorieIntake')}}">Reikalingos kalorijos</a>
+                                <a class="dropdown-item" href="{{route('requiredWater')}}">Reikalingas vanduo</a>
+                            </div>
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ route('login') }}>{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Recptai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('categ') }}">Pratimai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('artCategory')}}">Straipsniai</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Mitybos planai</a>
@@ -65,33 +104,6 @@
                             </div>
                         </div>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href={{ route('login') }}>{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Recptai</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/exercises') }}">Pratimai</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Straipsniai</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">Mitybos planai</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
-                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -126,7 +138,7 @@
     @endif
         @if ($errors->any())
             <div class="alert alert-danger">
-                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <strong>Ups!</strong> Klaida su įvestimi.<br><br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>

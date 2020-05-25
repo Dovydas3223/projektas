@@ -13,6 +13,93 @@ use function GuzzleHttp\Psr7\str;
 
 class ExercisesController extends Controller
 {
+
+
+    public function deleteCategory($categoryID){
+        $category = ExerciseCategory::find($categoryID);
+        $category->delete();
+
+        return redirect()->route('categ')->with('message', 'Ištrinta');
+    }
+
+    public function updateCategory(Request $request, $id){
+
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'name' => 'required',
+            'detail' => 'required'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = $image->getClientOriginalName();
+            $destinationPath = storage_path() . '\app';
+            $image->move($destinationPath, $name);
+            $image = Storage::disk('local')->get($name);
+            ExerciseCategory::find($id)->update([
+                'image' => $image
+            ]);
+        }
+
+        ExerciseCategory::find($id)->update([
+            'exerciseName' => $request->name,
+            'description' => $request->detail,
+        ]);
+
+        return redirect()->route('categ')->with('message', 'Atnaujinta');;
+
+    }
+
+    public function openEditCategoryView($id){
+        $category = ExerciseCategory::findOrFail($id);
+        $category-> image = 'data:image/jpeg;base64,'.base64_encode( $category -> image ).'';
+
+        return view('Exercises.Categorys.editExerciseCategoryView', [
+            'name'=>$category->categoryName,
+            'image' => $category->image,
+            'description' => $category->description,
+            'categoryID' => $id
+        ]);
+    }
+
+
+    public function openCreateExerciseCategoryView(){
+
+        return view('Exercises.Categorys.createExerciseCategoryView');
+    }
+
+    public function createCategory(Request $request){
+
+        $newCategory = new ExerciseCategory();
+
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'name' => 'required',
+            'detail' => 'required'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = $image->getClientOriginalName();
+            $destinationPath = storage_path() . '\app';
+            $image->move($destinationPath, $name);
+            $image = Storage::disk('local')->get($name);
+            $newCategory->image = $image;
+        }
+
+
+        $newCategory->categoryName = $request->name;
+        $newCategory->description = $request->detail;
+
+
+        $newCategory->save();
+
+
+        return redirect()->route('categ' )->with('message', 'Sukurta');;
+    }
+
+
     /**
      * Show the application dashboard.
      *
@@ -25,7 +112,7 @@ class ExercisesController extends Controller
         foreach ($cat as $c){
             $c-> image = 'data:image/jpeg;base64,'.base64_encode( $c-> image ).'';
         }
-        return view('Exercises.exerciseCategorys', [
+        return view('Exercises.Categorys.exerciseCategorys', [
             //'categorys' => 'data:image/jpeg;base64,'.base64_encode( $cat->image ).''
             'categorys' => $cat
         ]);
@@ -42,7 +129,7 @@ class ExercisesController extends Controller
             }
         }
 
-        return view('Exercises.exercises', [
+        return view('Exercises.Exercise.exercises', [
             'exercises' => $exercises,
             'categoryID' => $item_id
         ]);
@@ -55,9 +142,11 @@ class ExercisesController extends Controller
 
         $exercise -> image = 'data:image/jpeg;base64,'.base64_encode( $exercise -> image ).'';
         $exerciseDesc = explode("\n", $exercise -> description);
-        return view('Exercises.exerciseDescriptionView', [
+
+        return view('Exercises.Exercise.exerciseDescriptionView', [
             'exercise' => $exercise,
-            'desc' => $exerciseDesc
+            'desc' => $exerciseDesc,
+            'categoryID' => $exercise->fk_categoryID
         ]);
     }
 
@@ -65,15 +154,16 @@ class ExercisesController extends Controller
     {
 
         $exercise = Exercises::where('id','=', $id)->first();
+        $fk_ID= $exercise->fk_categoryID;
         $exercise->delete();
 
-        return redirect()->route('exercisesRoute', ['id'=>$exercise->FK_CategoryID])->with('message', 'Pašalinta');
+        return redirect()->route('exercisesRoute', ['id'=>$fk_ID])->with('message', 'Pašalinta');
     }
 
     public function openCreateExerciseView($categoryID)
     {
 
-        return view('Exercises.CreateExerciseView', [
+        return view('Exercises.Exercise.CreateExerciseView', [
             'categoryID'=>$categoryID
         ]);
     }
@@ -81,7 +171,7 @@ class ExercisesController extends Controller
     public function createExercise(Request $request, $categoryID){
         $newExercise = new exercises;
         $this->validate($request, [
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'name' => 'required',
             'detail' => 'required'
         ]);
@@ -100,6 +190,7 @@ class ExercisesController extends Controller
 
         $newExercise->FK_CategoryID = $categoryID;
         $newExercise->save();
+
 
         return redirect()->route('exercisesRoute',['id'=>$categoryID] )->with('message', 'Sukurta');;
     }
@@ -137,12 +228,12 @@ class ExercisesController extends Controller
         $exercise-> image = 'data:image/jpeg;base64,'.base64_encode( $exercise -> image ).'';
 
 
-        return view('Exercises.exerciseEditView', [
+        return view('Exercises.Exercise.exerciseEditView', [
             'id' => $exercise->id,
             'name'=>$exercise->exerciseName,
             'image' => $exercise->image,
             'description' => $exercise->description,
-            'categoryID' => $exercise->FK_CategoryID
+            'categoryID' => $exercise->fk_CategoryID
         ]);
     }
 

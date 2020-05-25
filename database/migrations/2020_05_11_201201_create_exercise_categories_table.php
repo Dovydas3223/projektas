@@ -17,6 +17,7 @@ class CreateExerciseCategoriesTable extends Migration
             $table->id();
             $table->string('categoryName');
             $table->binary('image');
+            $table->string('description');
             $table->timestamps();
         });
     }
