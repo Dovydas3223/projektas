@@ -42,7 +42,7 @@
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="">Recptai</a>
+                            <a class="nav-link" href="{{route('openRecipeCategoryView')}}">Recptai</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('categ') }}">Pratimai</a>
@@ -52,12 +52,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="">Mitybos planai</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
                         </li>
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,7 +75,7 @@
                     @else
 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Recptai</a>
+                            <a class="nav-link" href="{{route('openRecipeCategoryView')}}">Recptai</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('categ') }}">Pratimai</a>

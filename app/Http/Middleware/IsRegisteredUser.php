@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsAdmin
+class IsRegisteredUser
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,9 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user() != null){
-            if(auth()->user()->type == 'Admin') {
-                return $next($request);
-            }
-            return redirect('/');
+        if(auth()->user()->isAdmin() == 'RegisteredUser') {
+            return $next($request);
         }
-        return redirect('register')->with('message', 'denied');
+        return redirect('/');
     }
 }

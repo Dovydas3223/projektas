@@ -21,20 +21,23 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//ExercisesCategorys
+Route::get('/exerciseCategorys', 'ExercisesController@openCategoryView')->name('categ');
+Route::get('/createExerCategory', 'ExercisesController@openCreateExerciseCategoryView')->name('openCreateExerCategory');
+Route::post('/createExerCategory','ExercisesController@createCategory' )->name('createExerCategory');
+Route::get('/editExerciseCategory/{id}', 'ExercisesController@openEditCategoryView')->name('openEditExerciseCategoryView');
+Route::post('/editExerciseCategory/{id}', 'ExercisesController@updateCategory')->name('updateExerciseCategory');
+Route::get('/deleteExerciseCategory/{categID}', 'ExercisesController@deleteCategory')->name('deleteExerciseCategory');
+
 //Exercises
-Route::get('/exerciseCategorys', 'ExercisesController@openCategoryView')->name('categ');//->middleware('is_admin')->name('categ');
-Route::get('/exercises/{id}','ExercisesController@openExerciseListView')->name('exercisesRoute');
 Route::get('/exercisesDesc/{id}', 'ExercisesController@openExerciseDescriptionView')->name('exerciseDesc');
 Route::get('/exercisesDel/{id}', 'ExercisesController@deleteExercise');
 Route::get('/exerciseCreate/{id}', 'ExercisesController@openCreateExerciseView')->name('openCreateExerciseView');
 Route::post('/exercises/{id}','ExercisesController@createExercise')->name('create');
 Route::get('exerciseEdit/{id}', 'ExercisesController@openEditExerciseView')->name('openEditExerciseView');
 Route::post('/exerciseEdit/{id}','ExercisesController@editExercise')->name('edit');
-Route::get('/createExerCategory', 'ExercisesController@openCreateExerciseCategoryView')->name('openCreateExerCategory');
-Route::post('/createExerCategory','ExercisesController@createCategory' )->name('createExerCategory');
-Route::get('/editExerciseCategory/{id}', 'ExercisesController@openEditCategoryView')->name('openEditExerciseCategoryView');
-Route::post('/editExerciseCategory/{id}', 'ExercisesController@updateCategory')->name('updateExerciseCategory');
-Route::get('/deleteExerciseCategory/{categID}', 'ExercisesController@deleteCategory')->name('deleteExerciseCategory');
+Route::get('/exercises/{id}','ExercisesController@openExerciseListView')->name('exercisesRoute');
+
 
 
 //Calculators
@@ -55,6 +58,23 @@ Route::get('/articleCategoryDel/{id}', 'ArticleController@deleteCategory')->name
 
 //Articles
 Route::get('/articleList/{Category}', 'ArticleController@openArticleListView')->name('openArticleListView');
-Route::get('/articleDesc', 'ArticleController@openArticleDescriptionView')->name('openArticleDescView');
+Route::get('/articleDesc/{categoryID}', 'ArticleController@openArticleDescriptionView')->name('openArticleDescView');
 Route::get('/createArticle/{categoryID}', 'ArticleController@openCreateArticleView')->name('openCreateArticleView');
 Route::post('/createArticle/{categoryID}', 'ArticleController@createArticle')->name('createArticle');
+Route::get('articleEdit/{id}', 'ArticleController@openEditArticleView')->name('openEditArticleView');
+Route::post('/articleEdit/{id}','ArticleController@updateArticle')->name('editArticle');
+Route::get('/articleDel/{id}', 'ArticleController@deleteArticle');
+
+//RecipeController Categorys
+Route::get('/RecipeCategories', 'RecipeCategoryController@openRecipeCategoryListView')->name('openRecipeCategoryView');
+Route::get('/CreateRecipeCategory', 'RecipeCategoryController@openCreateRecipeCategoryView')->name('openCreateRecipeCategoryView');
+Route::get('/EditRecipeCategory/{id}', 'RecipeCategoryController@openEditRecipeCategoryView')->name('openEditRecipeCategoryView');
+Route::post('/CreateRecipeCategory','RecipeCategoryController@createCategory' )->name('createRecipeCategory');
+Route::post('/EditRecipeCategory/{categoryID}','RecipeCategoryController@editCategory' )->name('editRecipeCategory');
+Route::get('/DeleteRecipeCategory/{id}','RecipeCategoryController@deleteRecipeCategory' )->name('deleteRecipeCategory');
+
+
+//Recipes
+Route::get('/Recipes/{categoryID}', 'RecipeController@openRecipeListView')->name('openRecipeListView');
+Route::get('/Recipes/{categoryID}/CreateRecipe', 'RecipeController@openRecipeCreationView')->name('openCreateRecipe');
+Route::post('/CreateRecipe/{categoryID}', 'RecipeController@createRecipe')->name('createRecipe');

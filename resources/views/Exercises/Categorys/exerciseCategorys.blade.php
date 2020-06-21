@@ -9,7 +9,10 @@
             </div>
 
             <div class="row col-2">
-                <a href="{{route('openCreateExerCategory')}}" class="btn btn-success" >Pridėti kategoriją</a>
+                @if($userType == "Admin" )
+                    <a href="{{route('openCreateExerCategory')}}" class="btn btn-success" >Pridėti kategoriją</a>
+                @endif
+
             </div>
 
         </div>
@@ -24,8 +27,9 @@
                     <img src='{{$categorys[$i] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
                  height: 300px; object-fit: cover ">
 
+                    @if($userType == "Admin" )
                     <a type="button" class="btn btn-primary"  href='{{route('openEditExerciseCategoryView', $categorys[$i]->id)}}'>Redaguoti</a>
-
+                    @endif
                     <h4><b>{{$categorys[$i]->categoryName}}</b></h4>
                     <p>
                         {{$categorys[$i]->description}}
@@ -41,7 +45,9 @@
                             <div class="w3-container w3-white  embed-responsive w3-padding-16" >
                                 <img src='{{$categorys[$i+1] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
                  height: 300px; object-fit: cover ">
+                                @if($userType == "Admin" )
                                 <a type="button" class="btn btn-primary"  href='{{route('openEditExerciseCategoryView', $categorys[$i+1] -> id)}}'>Redaguoti</a>
+                                @endif
                                 <h4><b>{{$categorys[$i+1]->categoryName}}</b></h4>
                                 <p>
                                     {{$categorys[$i+1]->description}}
@@ -57,7 +63,9 @@
                             <div class="w3-container w3-white  embed-responsive w3-padding-16" >
                                 <img src='{{$categorys[$i+2] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
                  height: 300px; object-fit: cover ">
+                                @if($userType == "Admin" )
                                 <a type="button" class="btn btn-primary"  href='{{route('openEditExerciseCategoryView', $categorys[$i+2] -> id)}}'>Redaguoti</a>
+                                @endif
                                 <h4><b>{{$categorys[$i+2]->categoryName}}</b></h4>
                                 <p>
                                     {{$categorys[$i+2]->description}}

@@ -13,10 +13,10 @@ class User extends Authenticatable
 
 
     const ADMIN_TYPE = 'admin';
-    const DEFAULT_TYPE = 'default';
+    const DEFAULT_TYPE = 'RegisteredUser';
 
-    public function isAdmin(){
-        return $this->type === self::ADMIN_TYPE;
+    public function UserType(){
+        return $this->type;
     }
 
     /**1
@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'type',
     ];
 
     /**

@@ -2,7 +2,7 @@
 @section('content')
 
 
-    <link href="{{ asset('css/DeleteMessage.css') }}" rel="stylesheet">
+
 
     <div id="id01" class="modal">
         <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
@@ -10,7 +10,6 @@
             <div class="container">
                 <h1>Kategorijos šalinimas</h1>
                 <p>Ar tikrai norite šalinti šią kategoriją?</p>
-
                 <div class="clearfix">
                     <button onclick="document.getElementById('id01').style.display='none'" type="button" class="cancelbtn">Atšaukti</button>
                     <button type="submit" class="deletebtn">Šalinti</button>

@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Prid4ti naują straipsnį</h2>
+                <h2>Pridėti naują straipsnį</h2>
             </div>
             <div class="pull-right mt-3">
                 <a class="btn btn-primary" href="{{ route('openArticleListView', $categoryID) }}"> Atgal</a>

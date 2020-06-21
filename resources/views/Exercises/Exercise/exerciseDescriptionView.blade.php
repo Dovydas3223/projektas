@@ -25,8 +25,10 @@
             </p>
         </div>
 
+        @if($userType == "Admin")
         <a href="{{action('ExercisesController@deleteExercise', ['id'=>$exercise->id])}}" class="btn btn-danger">Šalinti</a>
         <a href="{{route('openEditExerciseView', $exercise->id)}}" class="btn btn-secondary">Redaguoti</a>
+        @endif
     </div>
     </div>
 @endsection

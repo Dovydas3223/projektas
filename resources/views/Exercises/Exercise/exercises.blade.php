@@ -7,15 +7,21 @@
 
 
     <div class="row justify-content-center mt-3" >
-        <div class=" row col-10">
+        <div class=" row col-8">
             <h2>Pratimai</h2>
             <a class="btn btn-primary" href="{{ route('categ') }}" style="margin-left: 15px"> Atgal</a>
         </div>
-        @auth('admin')
+        @if($userType == "Admin")
+        <div class="row col-2">
+            <a onclick="document.getElementById('id01').style.display='block'" class="btn btn-danger" >Šalinti</a>
+        </div>
         <div class="row col-2">
             <a href="{{route('openCreateExerciseView', $categoryID)}}" class="btn btn-success" >Pridėti pratimą</a>
         </div>
-        @endauth
+        @endif
+
+
+
     </div>
 
     @for ($i = 0; $i < count($exercises); $i=$i+3)
@@ -70,5 +76,31 @@
     @endfor
     </div>
 
+<link href="{{ asset('css/DeleteMessage.css') }}" rel="stylesheet">
+<div id="id01" class="modal">
+    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" action="{{route('deleteExerciseCategory', $categoryID)}}">
+        <div class="container">
+            <h1>Kategorijos šalinimas</h1>
+            <p>Ar tikrai norite šalinti šią kategoriją?</p>
 
+            <div class="clearfix">
+                <button onclick="document.getElementById('id01').style.display='none'" type="button" class="cancelbtn">Atšaukti</button>
+                <button type="submit" class="deletebtn">Šalinti</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 @endsection

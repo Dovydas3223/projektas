@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\exercises;
+use App\RecipeCategory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\DB;
@@ -14,9 +15,22 @@ use function GuzzleHttp\Psr7\str;
 class ExercisesController extends Controller
 {
 
+    private function userType(){
+        $userType= "Guest";
+        if(auth()->user() != null){
+            $userType = auth()->user()->type;
+        }
+        return $userType;
+    }
+
 
     public function deleteCategory($categoryID){
         $category = ExerciseCategory::find($categoryID);
+        $exercises = exercises::where('fk_categoryID','=', $categoryID)->get();
+
+        foreach ($exercises as $exercise){
+            $exercise->delete();
+        }
         $category->delete();
 
         return redirect()->route('categ')->with('message', 'Ištrinta');
@@ -47,7 +61,7 @@ class ExercisesController extends Controller
             'description' => $request->detail,
         ]);
 
-        return redirect()->route('categ')->with('message', 'Atnaujinta');;
+        return redirect()->route('categ')->with('message', 'Atnaujinta');
 
     }
 
@@ -71,7 +85,7 @@ class ExercisesController extends Controller
 
     public function createCategory(Request $request){
 
-        $newCategory = new ExerciseCategory();
+        $newCategory = new RecipeCategory();
 
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
@@ -91,12 +105,10 @@ class ExercisesController extends Controller
 
         $newCategory->categoryName = $request->name;
         $newCategory->description = $request->detail;
-
-
         $newCategory->save();
 
 
-        return redirect()->route('categ' )->with('message', 'Sukurta');;
+        return redirect()->route('openRecipeCategoryView' )->with('message', 'Sukurta');;
     }
 
 
@@ -114,7 +126,8 @@ class ExercisesController extends Controller
         }
         return view('Exercises.Categorys.exerciseCategorys', [
             //'categorys' => 'data:image/jpeg;base64,'.base64_encode( $cat->image ).''
-            'categorys' => $cat
+            'categorys' => $cat,
+            'userType' => $this->userType()
         ]);
     }
 
@@ -131,22 +144,23 @@ class ExercisesController extends Controller
 
         return view('Exercises.Exercise.exercises', [
             'exercises' => $exercises,
-            'categoryID' => $item_id
+            'categoryID' => $item_id,
+            'userType' => $this->userType()
         ]);
 
     }
 
     public function openExerciseDescriptionView($exercise_id)
     {
-        $exercise = Exercises::where('id','=', $exercise_id)->first();
-
+        $exercise = Exercises::findOrFail($exercise_id);
         $exercise -> image = 'data:image/jpeg;base64,'.base64_encode( $exercise -> image ).'';
         $exerciseDesc = explode("\n", $exercise -> description);
 
         return view('Exercises.Exercise.exerciseDescriptionView', [
             'exercise' => $exercise,
             'desc' => $exerciseDesc,
-            'categoryID' => $exercise->fk_categoryID
+            'categoryID' => $exercise->fk_categoryID,
+            'userType' => $this->userType()
         ]);
     }
 
@@ -169,7 +183,7 @@ class ExercisesController extends Controller
     }
 
     public function createExercise(Request $request, $categoryID){
-        $newExercise = new exercises;
+        $newExercise = new exercises();
         $this->validate($request, [
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'name' => 'required',
