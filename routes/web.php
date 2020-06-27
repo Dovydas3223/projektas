@@ -77,4 +77,6 @@ Route::get('/DeleteRecipeCategory/{id}','RecipeCategoryController@deleteRecipeCa
 //Recipes
 Route::get('/Recipes/{categoryID}', 'RecipeController@openRecipeListView')->name('openRecipeListView');
 Route::get('/Recipes/{categoryID}/CreateRecipe', 'RecipeController@openRecipeCreationView')->name('openCreateRecipe');
-Route::post('/CreateRecipe/{categoryID}', 'RecipeController@createRecipe')->name('createRecipe');
+Route::post('/CreateRecipeDesc/{categoryID}', 'RecipeController@openDescriptionCreationView')->name('openDescriptionCreation');
+Route::post('/Recipes/{categoryID}/CreateRecipe', 'RecipeController@createRecipe')->name('createRecipe');
+Route::get('/RecipeDesc/{categoryID}/{recipeID}', 'RecipeController@openRecipeDescriptionView')->name('openRecipeDescription');

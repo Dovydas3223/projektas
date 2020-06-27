@@ -16,14 +16,13 @@
         </div>
     </div>
 
-    <div class="dropdown" >
-        <p type="button" onclick="myFunction()" class="dropbtn">Ingredientai</p>
-        <div id="myDropdown" class="dropdown-content">
-            <input placeholder="Ieškoti.." id="myInput" onkeyup="filterFunction()">
-            @foreach($ingredients as $ingredient )
-                <a id="{{$ingredient->id}}" onclick="clickList(this.id, {{$ingredient}})"> {{$ingredient->name}}</a>
-
-            @endforeach
+    <div class="dropdown">
+        <p type="button" onclick="initialClick(),myFunction()"  class="dropbtn">Ingredientai</p>
+        <div id="myDropdown"  class="dropdown-content">
+            <input placeholder="Ieškoti.." id="myInput"  onkeyup="filterFunction()">
+            @for($i = 0; $i < count($ingredients); $i++)
+                <a id="{{$ingredients[$i]->id}}"  onclick="clickList(this.id, {{$ingredients[$i]}})"> {{$ingredients[$i]->name}}</a>
+            @endfor
             <p href="#" hidden id="noIngredient"> Kurti ingredientą</p>
         </div>
 
@@ -42,19 +41,9 @@
         </tr>
         </thead>
 
-        <form action="{{ route('createRecipe', ['categoryID'=>$categoryID]) }}" method="POST"  enctype="multipart/form-data">
-            @csrf
+        <tbody id="myTableBody">
 
-
-
-                <tbody name="table" id="myTableBody">
-                </tbody>
-
-
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-        </form>
+        </tbody>
 
         <tfoot>
         <tr style="background-color: lightgray; color: #a52a2a;" >
@@ -68,6 +57,21 @@
         </tr>
         </tfoot>
     </table>
+
+
+    <form action="{{ route('openDescriptionCreation', ['categoryID'=>$categoryID]) }}" method="POST"  enctype="multipart/form-data">
+        @csrf
+
+        <div id="toController">
+
+        </div>
+
+
+
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+            <button type="submit" class="btn btn-primary">Tęsti</button>
+        </div>
+    </form>
 
     <script>
         /* When the user clicks on the button,
@@ -91,13 +95,7 @@
             var cell5 = row.insertCell(5);
             var cell6 = row.insertCell(6);
             cell6.setAttribute('class','w3-hover-text-red default' );
-
-
             cell0.setAttribute('id', num);
-            cell0.setAttribute('class', 'form-control');
-            cell0.setAttribute('name', 'iddasd');
-
-
             cell0.innerHTML = num;
             cell1.innerHTML = text;
             cell2.innerHTML = quantity;
@@ -108,7 +106,31 @@
             cell6.setAttribute('onclick', "changeQuantity("+ num + ","+ ingred.proteins + "" +
                 ","+ ingred.fats + ","+ ingred.carbs + ")");
             num++;
+
+            toControllerIDs(ingredient.id);
+            toControllerQuantity(quantity, num);
             recalculateAll();
+        }
+
+        function toControllerQuantity(quantity, num) {
+            var toController = document.getElementById("toController");
+            var input =  document.createElement("INPUT");
+            input.setAttribute("type", "text");
+            input.setAttribute("value", quantity);
+            input.setAttribute("hidden", true);
+            input.setAttribute("id", num)
+            input.setAttribute("name", "quantity[]");
+            toController.appendChild(input);
+        }
+
+        function toControllerIDs(idIngred) {
+            var toController = document.getElementById("toController");
+            var input =  document.createElement("INPUT");
+            input.setAttribute("type", "text");
+            input.setAttribute("value", idIngred);
+            input.setAttribute("hidden", true);
+            input.setAttribute("name", "ingredID[]");
+            toController.appendChild(input);
         }
 
         function recalculateAll() {
@@ -144,24 +166,49 @@
             table.cells[3].innerHTML = proteins*quantity/100;
             table.cells[4].innerHTML = fats*quantity/100;
             table.cells[5].innerHTML = carbs*quantity/100;
+            changeQuantityInput(quantity, num);
             recalculateAll()
         }
 
-        function filterFunction() {
 
+        function changeQuantityInput(quantity, num){
+            var hiddenInputs = document.getElementsByName('quantity[]');
+            for (i = 0; i < hiddenInputs.length; i++) {
+                if(i == num-1){
+                    hiddenInputs[i].setAttribute("value", quantity);
+                }
+            }
+        }
+
+        function initialClick() {
+
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("a");
+            for (i = 5; i < a.length; i++) {
+
+                    a[i].style.display = "none";
+            }
+        }
+
+        function filterFunction() {
             var input, filter, a, i;
             input = document.getElementById("myInput");
             filter = input.value.toUpperCase();
             div = document.getElementById("myDropdown");
             a = div.getElementsByTagName("a");
-            for (i = 0; i < a.length; i++) {
-                txtValue = a[i].textContent || a[i].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    a[i].style.display = "";
-                } else {
-                    a[i].style.display = "none";
+
+                for (i = 0; i < a.length; i++) {
+                    txtValue = a[i].textContent || a[i].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        a[i].style.display = "";
+                    } else {
+                        a[i].style.display = "none";
+                    }
                 }
+            if (filter == ""){
+                initialClick();
             }
+
             var temp = [];
             for (i = 0; i < a.length; i++){
                 if (a[i].style.display == "")
@@ -171,7 +218,6 @@
                     temp.push(0);
                 }
             }
-
 
             if (temp.every(notEmpty))
             {

@@ -14,6 +14,12 @@
             <H1>{{$exercise->exerciseName}}</H1>
             <img src="{{$exercise->image}}" class="img-fluid">
         </div>
+
+        <div>
+            <H2 >Sudėtis</H2>
+            foreach
+        </div>
+
         <div>
             <H2 >Aprašymas</H2>
             <p class="text-left" style="width: 600px;position: relative; left: 100px">

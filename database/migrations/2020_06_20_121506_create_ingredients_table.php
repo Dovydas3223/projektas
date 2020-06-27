@@ -15,7 +15,7 @@ class CreateIngredientsTable extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
-            $table->binary('image');
+            $table->binary('image')->nullable();
             $table->string('name');
             $table->double('calories');
             $table->double('proteins');

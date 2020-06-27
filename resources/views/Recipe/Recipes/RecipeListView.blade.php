@@ -27,7 +27,7 @@
 
                 @if($i<count($recipes))
                     <div class="w3-hover-opacity text-center w3-quarter w3-container w3-margin-bottom col-sm-4 ">
-                        <a href="{{route('openRecipeListView',$recipes[$i] -> id )}}"  style="text-decoration: none">
+                        <a href="{{route('openRecipeDescription',[$categoryID, $recipes[$i] -> id] )}}"  style="text-decoration: none">
                             <div class="w3-container w3-white  embed-responsive w3-padding-16" >
                                 <img src='{{$recipes[$i] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
                  height: 300px; object-fit: cover ">
@@ -40,7 +40,7 @@
 
                 @if($i+1<count($recipes))
                     <div class="w3-quarter w3-container w3-margin-bottom col-sm-4">
-                        <a  href="{{route('openRecipeListView',$recipes[$i+1] -> id )}}" style="text-decoration: none">
+                        <a  href="{{route('openRecipeDescription',[$categoryID, $recipes[$i+1] -> id])}}" style="text-decoration: none">
                             <div class="w3-container w3-white  embed-responsive w3-padding-16">
                                 <img src='{{$recipes[$i+1] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
                  height: 300px; object-fit: cover ">
@@ -53,7 +53,7 @@
 
                 @if($i+2<count($recipes))
                     <div class="w3-quarter w3-container w3-margin-bottom col-sm-4">
-                        <a href="{{route('openRecipeListView',$recipes[$i+2] -> id )}}" style="text-decoration: none">
+                        <a href="{{route('openRecipeDescription',[$categoryID,$recipes[$i+2] -> id])}}" style="text-decoration: none">
                             <div class="w3-container w3-white  embed-responsive w3-padding-16">
                                 <img src='{{$recipes[$i+2] -> image}}'  class="rounded mx-auto d-block w3-image" style="width: 300px;
                  height: 300px; object-fit: cover ">

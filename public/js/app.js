@@ -65860,8 +65860,8 @@ if (document.getElementById('example')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\dovsav\Desktop\KTU\Interaktyvios interneto technologijos\projektas\SveikaGyvensena\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\dovsav\Desktop\KTU\Interaktyvios interneto technologijos\projektas\SveikaGyvensena\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Eligijus\Desktop\SveikaGyvensena\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Eligijus\Desktop\SveikaGyvensena\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

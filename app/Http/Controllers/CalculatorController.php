@@ -92,29 +92,34 @@ class CalculatorController extends Controller
             $mult=1.3;
             $maintainWeight = $BMR*$mult;
             $loseWeight = ($BMR*$mult)-($BMR*$mult*0.2);
+            $gainWeight = ($BMR*$mult)+($BMR*$mult*0.2);
             $veryLight = 'checked';
         }elseif ($activity == 'light')
         {
             $mult=1.55;
             $maintainWeight = $BMR*$mult;
             $loseWeight = ($BMR*$mult)-($BMR*$mult*0.2);
+            $gainWeight = ($BMR*$mult)+($BMR*$mult*0.2);
             $light = 'checked';
         }elseif ($activity == 'moderate')
         {
             $mult=1.65;
             $maintainWeight = $BMR*$mult;
             $loseWeight = ($BMR*$mult)-($BMR*$mult*0.2);
+            $gainWeight = ($BMR*$mult)+($BMR*$mult*0.2);
             $moderate = 'checked';
         }elseif ($activity == 'heavy')
         {
             $mult=1.8;
             $maintainWeight = $BMR*$mult;
             $loseWeight = ($BMR*$mult)-($BMR*$mult*0.2);
+            $gainWeight = ($BMR*$mult)+($BMR*$mult*0.2);
             $heavy = 'checked';
         }else {
             $mult=2;
             $maintainWeight = $BMR*$mult;
             $loseWeight = ($BMR*$mult)-($BMR*$mult*0.2);
+            $gainWeight = ($BMR*$mult)+($BMR*$mult*0.2);
             $veryHeavy = 'checked';
         }
 
@@ -127,6 +132,7 @@ class CalculatorController extends Controller
             'activity' =>  $request->activity,
             'maintainWeight'=> round($maintainWeight),
             'loseWeight' => round($loseWeight),
+            'gainWeight' => round($gainWeight),
             'veryLight' => $veryLight,
             'light' => $light,
             'moderate' => $moderate,

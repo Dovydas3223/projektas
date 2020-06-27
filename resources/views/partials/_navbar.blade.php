@@ -53,6 +53,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="">Mitybos planai</a>
                         </li>
+
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Skaičuoklės
@@ -73,6 +74,7 @@
                             </li>
                         @endif
                     @else
+
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('openRecipeCategoryView')}}">Recptai</a>
@@ -98,6 +100,9 @@
                             </div>
                         </div>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pranešimai</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>

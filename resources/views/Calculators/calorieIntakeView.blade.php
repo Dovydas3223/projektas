@@ -12,8 +12,8 @@
 
 
             <radio class=" col-xs-12 col-sm-12 col-md-12">
-                <input type="radio" name="gender" value="Man"{{$man ?? ''}}/>Vyras
-                <input type="radio" name="gender" value="Woman" {{$woman ?? ''}}/>Moteris
+                <input type="radio" name="gender" value="man"{{$man ?? ''}}/>Vyras
+                <input type="radio" name="gender" value="woman" {{$woman ?? ''}}/>Moteris
             </radio>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -49,6 +49,6 @@
     <div class="col-sm mt-5" style="text-align: center">
         <h2>Kiek reikia kalorijų?</h2>
         <span class= "index">Norint palaikyti svorį: {{$maintainWeight ?? '----'}}</span><br>
-        <span class="index" >Norint priaugti svorio: {{$loseWeight ?? '----'}}</span><br>
+        <span class="index" >Norint priaugti svorio: {{$gainWeight ?? '----'}}</span><br>
         <span class="index" >Norint numesti svorio: {{ $loseWeight ?? '----'}}</span><br>
 @endsection
